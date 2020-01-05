@@ -13,6 +13,8 @@
 		451AD26A23BDE0FE0095EF96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451AD26823BDE0FE0095EF96 /* Main.storyboard */; };
 		451AD26C23BDE1010095EF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 451AD26B23BDE1010095EF96 /* Assets.xcassets */; };
 		451AD26F23BDE1010095EF96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451AD26D23BDE1010095EF96 /* LaunchScreen.storyboard */; };
+		451AD27823C2114B0095EF96 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD27623C2114B0095EF96 /* CollectionViewCell.swift */; };
+		451AD27923C2114B0095EF96 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451AD27723C2114B0095EF96 /* CollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		451AD26B23BDE1010095EF96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		451AD26E23BDE1010095EF96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		451AD27023BDE1010095EF96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		451AD27623C2114B0095EF96 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		451AD27723C2114B0095EF96 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				451AD26B23BDE1010095EF96 /* Assets.xcassets */,
 				451AD26D23BDE1010095EF96 /* LaunchScreen.storyboard */,
 				451AD27023BDE1010095EF96 /* Info.plist */,
+				451AD27623C2114B0095EF96 /* CollectionViewCell.swift */,
+				451AD27723C2114B0095EF96 /* CollectionViewCell.xib */,
 			);
 			path = "CompositionalLayouts-Sample";
 			sourceTree = "<group>";
@@ -127,6 +133,7 @@
 			files = (
 				451AD26F23BDE1010095EF96 /* LaunchScreen.storyboard in Resources */,
 				451AD26C23BDE1010095EF96 /* Assets.xcassets in Resources */,
+				451AD27923C2114B0095EF96 /* CollectionViewCell.xib in Resources */,
 				451AD26A23BDE0FE0095EF96 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +147,7 @@
 			files = (
 				451AD26723BDE0FE0095EF96 /* ViewController.swift in Sources */,
 				451AD26323BDE0FE0095EF96 /* AppDelegate.swift in Sources */,
+				451AD27823C2114B0095EF96 /* CollectionViewCell.swift in Sources */,
 				451AD26523BDE0FE0095EF96 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
