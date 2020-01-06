@@ -15,6 +15,7 @@
 		451AD26F23BDE1010095EF96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451AD26D23BDE1010095EF96 /* LaunchScreen.storyboard */; };
 		451AD27823C2114B0095EF96 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD27623C2114B0095EF96 /* CollectionViewCell.swift */; };
 		451AD27923C2114B0095EF96 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451AD27723C2114B0095EF96 /* CollectionViewCell.xib */; };
+		451AD27B23C37BB70095EF96 /* LayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD27A23C37BB70095EF96 /* LayoutType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		451AD27023BDE1010095EF96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		451AD27623C2114B0095EF96 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		451AD27723C2114B0095EF96 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		451AD27A23C37BB70095EF96 /* LayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				451AD27023BDE1010095EF96 /* Info.plist */,
 				451AD27623C2114B0095EF96 /* CollectionViewCell.swift */,
 				451AD27723C2114B0095EF96 /* CollectionViewCell.xib */,
+				451AD27A23C37BB70095EF96 /* LayoutType.swift */,
 			);
 			path = "CompositionalLayouts-Sample";
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451AD27B23C37BB70095EF96 /* LayoutType.swift in Sources */,
 				451AD26723BDE0FE0095EF96 /* ViewController.swift in Sources */,
 				451AD26323BDE0FE0095EF96 /* AppDelegate.swift in Sources */,
 				451AD27823C2114B0095EF96 /* CollectionViewCell.swift in Sources */,
