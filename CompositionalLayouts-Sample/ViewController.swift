@@ -31,90 +31,94 @@ class ViewController: UIViewController {
     }
 
     func createLayout() -> UICollectionViewLayout {
-        let sideInset: CGFloat = 18
-        let insideInset: CGFloat = 8
-        let topInset: CGFloat = 8
-        let viewWidth: CGFloat = view.bounds.width
-        let smallSquareWidth: CGFloat = (viewWidth - (sideInset * 2 + insideInset * 2)) / 3
-        let mediumSquareWidth: CGFloat = smallSquareWidth * 2 + insideInset
-        let nestedGroupHeight: CGFloat = mediumSquareWidth + topInset
-        let smallSquareGroupHeight: CGFloat = smallSquareWidth + topInset
+        let 外枠からの横幅: CGFloat = 18
+        let セル間の横幅: CGFloat = 8
+        let グループ間の縦幅: CGFloat = 8
+        let CVの横幅: CGFloat = view.bounds.width
+        let 小さい方の四角形の横幅: CGFloat = (CVの横幅 - (外枠からの横幅 * 2 + セル間の横幅 * 2)) / 3
+        let 大きい方の四角形の横幅: CGFloat = 小さい方の四角形の横幅 * 2 + セル間の横幅
+        let 大きい四角形側のグループの高さ: CGFloat = 大きい方の四角形の横幅 + グループ間の縦幅
+        let 小さい四角形側のグループの高さ: CGFloat = 小さい方の四角形の横幅 + グループ間の縦幅
 
-
-        let layout = UICollectionViewCompositionalLayout {
+        let sections = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
-            let nestedGroupTypeA: NSCollectionLayoutGroup = {
+            // グループ1
+            let 小2中1のグループ: NSCollectionLayoutGroup = {
                 let smallSquareItem = NSCollectionLayoutItem(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .absolute(smallSquareWidth + insideInset)))
-                smallSquareItem.contentInsets = NSDirectionalEdgeInsets(top: topInset, leading: 0, bottom: 0, trailing: insideInset)
+                                                      heightDimension: .absolute(小さい方の四角形の横幅 + セル間の横幅)))
+                smallSquareItem.contentInsets = NSDirectionalEdgeInsets(top: グループ間の縦幅, leading: 0, bottom: 0, trailing: セル間の横幅)
                 let smallSquareGroup = NSCollectionLayoutGroup.vertical(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(smallSquareWidth + insideInset),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(小さい方の四角形の横幅 + セル間の横幅),
                                                       heightDimension: .fractionalHeight(1.0)),
                     subitem: smallSquareItem, count: 2)
 
                 let mediumSquareItem = NSCollectionLayoutItem(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(mediumSquareWidth),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(大きい方の四角形の横幅),
                                                       heightDimension: .fractionalHeight(1.0)))
-                mediumSquareItem.contentInsets = NSDirectionalEdgeInsets(top: topInset, leading: 0, bottom: 0, trailing: 0)
+                mediumSquareItem.contentInsets = NSDirectionalEdgeInsets(top: グループ間の縦幅, leading: 0, bottom: 0, trailing: 0)
 
                 let nestedGroup = NSCollectionLayoutGroup.horizontal(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .absolute(nestedGroupHeight)),
+                                                      heightDimension: .absolute(大きい四角形側のグループの高さ)),
                     subitems: [smallSquareGroup, mediumSquareItem])
                 return nestedGroup
             }()
 
-            let nestedGroupTypeB: NSCollectionLayoutGroup = {
+            // グループ2
+            let 中1小2のグループ: NSCollectionLayoutGroup = {
                 let mediumSquareItem = NSCollectionLayoutItem(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(mediumSquareWidth + insideInset),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(大きい方の四角形の横幅 + セル間の横幅),
                                                       heightDimension: .fractionalHeight(1.0)))
-                mediumSquareItem.contentInsets = NSDirectionalEdgeInsets(top: topInset, leading: 0, bottom: 0, trailing: insideInset)
+                mediumSquareItem.contentInsets = NSDirectionalEdgeInsets(top: グループ間の縦幅, leading: 0, bottom: 0, trailing: セル間の横幅)
 
                 let smallSquareItem = NSCollectionLayoutItem(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .absolute(smallSquareWidth + insideInset)))
-                smallSquareItem.contentInsets = NSDirectionalEdgeInsets(top: topInset, leading: 0, bottom: 0, trailing: 0)
+                                                      heightDimension: .absolute(小さい方の四角形の横幅 + セル間の横幅)))
+                smallSquareItem.contentInsets = NSDirectionalEdgeInsets(top: グループ間の縦幅, leading: 0, bottom: 0, trailing: 0)
                 let smallSquareGroup = NSCollectionLayoutGroup.vertical(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(smallSquareWidth),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(小さい方の四角形の横幅),
                                                       heightDimension: .fractionalHeight(1.0)),
                     subitem: smallSquareItem, count: 2)
 
                 let nestedGroup = NSCollectionLayoutGroup.horizontal(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .absolute(nestedGroupHeight)),
+                                                      heightDimension: .absolute(大きい四角形側のグループの高さ)),
                     subitems: [mediumSquareItem, smallSquareGroup])
                 return nestedGroup
             }()
 
-            let nestedGroupTypeC: NSCollectionLayoutGroup = {
+            // グループ3
+            let 小3のグループ: NSCollectionLayoutGroup = {
                 let smallSquareItem = NSCollectionLayoutItem(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(smallSquareWidth),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(小さい方の四角形の横幅),
                                                       heightDimension: .fractionalHeight(1.0)))
 
                 let smallSquareGroup = NSCollectionLayoutGroup.horizontal(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .absolute(smallSquareGroupHeight)),
+                                                      heightDimension: .absolute(小さい四角形側のグループの高さ)),
                     subitem: smallSquareItem,
                     count: 3)
-                smallSquareGroup.interItemSpacing = .fixed(insideInset)
-                smallSquareGroup.contentInsets = NSDirectionalEdgeInsets(top: topInset, leading: 0, bottom: 0, trailing: 0)
+                smallSquareGroup.interItemSpacing = .fixed(セル間の横幅)
+                smallSquareGroup.contentInsets = NSDirectionalEdgeInsets(top: グループ間の縦幅, leading: 0, bottom: 0, trailing: 0)
 
                 return smallSquareGroup
             }()
 
-            let group = NSCollectionLayoutGroup.vertical(
+            // グループの集合体
+            let groups = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .absolute(nestedGroupHeight * 2 + smallSquareGroupHeight * 2)),
-            subitems: [nestedGroupTypeA, nestedGroupTypeC, nestedGroupTypeB, nestedGroupTypeC])
+                                               heightDimension: .absolute(大きい四角形側のグループの高さ * 2 + 小さい四角形側のグループの高さ * 2)),
+            subitems: [小2中1のグループ, 小3のグループ, 中1小2のグループ, 小3のグループ])
 
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset)
+            // セクション
+            let section = NSCollectionLayoutSection(group: groups)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 外枠からの横幅, bottom: 0, trailing: 外枠からの横幅)
             return section
 
         }
-        return layout
+        return sections
     }
 }
 
