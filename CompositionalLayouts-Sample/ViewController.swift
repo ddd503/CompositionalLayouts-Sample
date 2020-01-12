@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     }
 
     func setLayoutType(type: LayoutType) {
-        collectionView.collectionViewLayout = type.layout
+        collectionView.collectionViewLayout = type.layout(collectionViewBounds: collectionView.bounds)
     }
 }
 

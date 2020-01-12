@@ -13,11 +13,10 @@ enum LayoutType {
     case insta
     case pintarest
 
-    var layout: UICollectionViewLayout {
+    func layout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         switch self {
         case .grid:
-            // 柔軟性出すなら外からCollectionViewのwidthを渡せるようにする
-            let itemLength = NSCollectionLayoutDimension.absolute(UIScreen.main.bounds.width / 3)
+            let itemLength = NSCollectionLayoutDimension.absolute(collectionViewBounds.width / 3)
             let itemSpacing = CGFloat(2)
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: itemLength, heightDimension: itemLength))
             let items = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
