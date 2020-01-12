@@ -9,7 +9,7 @@
 import UIKit
 
 enum LayoutType {
-    case grid
+    case grid // グリッド形式での表示（3 * n）
     case insta
     case pintarest
 
@@ -18,7 +18,7 @@ enum LayoutType {
         case .grid:
             // 柔軟性出すなら外からCollectionViewのwidthを渡せるようにする
             let itemLength = NSCollectionLayoutDimension.absolute(UIScreen.main.bounds.width / 3)
-            let itemSpacing = CGFloat(5)
+            let itemSpacing = CGFloat(2)
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: itemLength, heightDimension: itemLength))
             let items = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                               heightDimension: .fractionalHeight(1.0)),
@@ -31,7 +31,9 @@ enum LayoutType {
                                                           subitems: [items])
             let sections = NSCollectionLayoutSection(group: groups) // ここでセルの数に反映
             sections.interGroupSpacing = itemSpacing
-            return UICollectionViewCompositionalLayout(section: sections)
+            sections.contentInsets = .init(top: 0, leading: itemSpacing, bottom: 0, trailing: itemSpacing)
+            let layout = UICollectionViewCompositionalLayout(section: sections)
+            return layout
         default: return UICollectionViewLayout()
         }
     }
