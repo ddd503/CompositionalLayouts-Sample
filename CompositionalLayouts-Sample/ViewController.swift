@@ -13,24 +13,29 @@ class ViewController: UIViewController {
         case main
     }
 
+    @IBOutlet weak private var cv: UICollectionView! {
+        didSet {
+            cv.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            cv.delegate = self
+            cv.dataSource = self
+        }
+    }
+
     var collectionView: UICollectionView! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
+        setLayoutType(type: .grid)
     }
 
-    func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
-        collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
-        view.addSubview(collectionView)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    func setLayoutType(type: LayoutType) {
+        cv.collectionViewLayout = type.layout
     }
 
     func createLayout() -> UICollectionViewLayout {
+        /*
+         item作る → Group作る → Section作る
+         */
         let 外枠からの横幅: CGFloat = 18
         let セル間の横幅: CGFloat = 8
         let グループ間の縦幅: CGFloat = 8
@@ -130,8 +135,8 @@ extension ViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
            print("didUnhighlightItemAt")
-        let cell = collectionView.cellForItem(at: indexPath)!
-        cell.backgroundColor = .blue
+//        let cell = collectionView.cellForItem(at: indexPath)!
+//        cell.backgroundColor = .blue
     }
 }
 
