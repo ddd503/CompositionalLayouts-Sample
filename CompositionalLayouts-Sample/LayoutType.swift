@@ -16,16 +16,19 @@ enum LayoutType {
     func layout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         switch self {
         case .grid:
-            let itemLength = NSCollectionLayoutDimension.absolute(collectionViewBounds.width / 3)
-            let itemSpacing = CGFloat(2)
-            let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: itemLength, heightDimension: itemLength))
+            let itemCount = 3 // 横に並べる数
+            let lineCount = itemCount - 1
+            let itemSpacing = CGFloat(2) // セル間のスペース
+            let itemLength = (collectionViewBounds.width - (itemSpacing * CGFloat(lineCount))) / CGFloat(itemCount)
+            let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(itemLength),
+                                                                                 heightDimension: .absolute(itemLength)))
             let items = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                               heightDimension: .fractionalHeight(1.0)),
                                                            subitem: item,
-                                                           count: 3)
+                                                           count: itemCount)
             items.interItemSpacing = .fixed(itemSpacing)
             let groups = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                             heightDimension: itemLength),
+                                                                                             heightDimension: .absolute(itemLength)),
                                                           subitems: [items])
             let sections = NSCollectionLayoutSection(group: groups) // ここでセルの数に反映
             sections.interGroupSpacing = itemSpacing
@@ -33,9 +36,7 @@ enum LayoutType {
             let layout = UICollectionViewCompositionalLayout(section: sections)
             return layout
         case .insta:
-            // セル間のスペース
-            let itemSpacing = CGFloat(2)
-
+            let itemSpacing = CGFloat(2) // セル間のスペース
             // 小ブロック縦2グループ
             let itemLength = (collectionViewBounds.width - (itemSpacing * 2)) / 3
             let largeItemLength = itemLength * 2 + itemSpacing
@@ -47,7 +48,6 @@ enum LayoutType {
                                                                    subitem: item,
                                                                    count: 2)
             verticalItemTwo.interItemSpacing = .fixed(itemSpacing)
-
             // 大ブロックありグループ
             let largeItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(largeItemLength),
                                                                                       heightDimension: .absolute(largeItemLength)))
@@ -61,7 +61,6 @@ enum LayoutType {
                                                                                                             heightDimension: .absolute(largeItemLength)),
                                                                          subitems: [verticalItemTwo, largeItem])
             largeItemRightGroup.interItemSpacing = .fixed(itemSpacing)
-
             // 小ブロック縦2横3グループ
             let twoThreeItemGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                                           heightDimension: .absolute(largeItemLength)),
