@@ -62,18 +62,50 @@
 		451AD26123BDE0FE0095EF96 /* CompositionalLayouts-Sample */ = {
 			isa = PBXGroup;
 			children = (
+				4560AF7223CC851400D3F8E2 /* Model */,
+				4560AF7123CC850600D3F8E2 /* View */,
+				4560AF6F23CC850000D3F8E2 /* Other */,
+			);
+			path = "CompositionalLayouts-Sample";
+			sourceTree = "<group>";
+		};
+		4560AF6F23CC850000D3F8E2 /* Other */ = {
+			isa = PBXGroup;
+			children = (
 				451AD26223BDE0FE0095EF96 /* AppDelegate.swift */,
 				451AD26423BDE0FE0095EF96 /* SceneDelegate.swift */,
-				451AD26623BDE0FE0095EF96 /* ViewController.swift */,
-				451AD26823BDE0FE0095EF96 /* Main.storyboard */,
 				451AD26B23BDE1010095EF96 /* Assets.xcassets */,
 				451AD26D23BDE1010095EF96 /* LaunchScreen.storyboard */,
 				451AD27023BDE1010095EF96 /* Info.plist */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		4560AF7123CC850600D3F8E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				451AD26623BDE0FE0095EF96 /* ViewController.swift */,
+				451AD26823BDE0FE0095EF96 /* Main.storyboard */,
 				451AD27623C2114B0095EF96 /* CollectionViewCell.swift */,
 				451AD27723C2114B0095EF96 /* CollectionViewCell.xib */,
+				4560AF7323CC854000D3F8E2 /* Layout */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4560AF7223CC851400D3F8E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4560AF7323CC854000D3F8E2 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
 				451AD27A23C37BB70095EF96 /* LayoutType.swift */,
 			);
-			path = "CompositionalLayouts-Sample";
+			path = Layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,7 +330,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LVR5UQEHBD;
-				INFOPLIST_FILE = "CompositionalLayouts-Sample/Info.plist";
+				INFOPLIST_FILE = "CompositionalLayouts-Sample/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +348,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LVR5UQEHBD;
-				INFOPLIST_FILE = "CompositionalLayouts-Sample/Info.plist";
+				INFOPLIST_FILE = "CompositionalLayouts-Sample/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

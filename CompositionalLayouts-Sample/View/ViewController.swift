@@ -9,13 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    enum Section: Int, CaseIterable {
-        case main
-    }
-
+    
     @IBOutlet weak private var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            collectionView.register(CollectionViewCell.nib(),
+                                    forCellWithReuseIdentifier: CollectionViewCell.identifier)
             collectionView.dataSource = self
             // bottomのsafeAreaを外す場合
 //            collectionView.contentInsetAdjustmentBehavior = .never
@@ -24,7 +22,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayoutType(type: .grid)
+        setLayoutType(type: .insta)
     }
 
     func setLayoutType(type: LayoutType) {
@@ -38,12 +36,9 @@ extension ViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let section = Section(rawValue: indexPath.section) else { fatalError("Invalid section") }
-        switch section {
-        case .main:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell
-            cell.update(text: "\(indexPath.section), \(indexPath.row)")
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
+                                                      for: indexPath) as! CollectionViewCell
+        cell.update(text: "\(indexPath.section), \(indexPath.row)")
+        return cell
     }
 }

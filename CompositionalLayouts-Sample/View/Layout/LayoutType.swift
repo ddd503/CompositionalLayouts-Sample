@@ -10,8 +10,8 @@ import UIKit
 
 enum LayoutType {
     case grid // グリッド形式での表示（3 * n）
-    case insta
-    case pintarest
+    case insta // Instagramの検索画面
+    case netflix // Netflixのトップ(動画一覧)画面
 
     func layout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         switch self {
