@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayoutType(type: .insta)
+        setLayoutType(type: .netflix)
     }
 
     func setLayoutType(type: LayoutType) {
