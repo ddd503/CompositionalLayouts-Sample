@@ -95,27 +95,38 @@ enum LayoutType {
 
     func netFlixLayout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         // 縦長方形グループ
+        let verticalRectangleHeight = collectionViewBounds.height * 0.8
         let verticalRectangleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                      heightDimension: .fractionalHeight(1.0)))
+                                                                                              heightDimension: .fractionalHeight(1.0)))
         let verticalRectangleGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                                 heightDimension: .absolute(collectionViewBounds.height * 0.8)),
-                                                              subitem: verticalRectangleItem,
-                                                              count: 1)
+                                                                                                         heightDimension: .absolute(verticalRectangleHeight)),
+                                                                      subitem: verticalRectangleItem,
+                                                                      count: 1)
 
-        // ヘッダー+横長方形グループ
+        // (ヘッダー+横長方形グループ) * 2
         let headerHeight = CGFloat(50)
         let horizonRectangleItemHeight = collectionViewBounds.width * 0.9 / 3 * (4/3)
         let headerItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                    heightDimension: .absolute(headerHeight)))
         let horizonRectangleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                              heightDimension: .absolute(horizonRectangleItemHeight)))
+        let horizonRectangleGroupHeight = headerHeight + horizonRectangleItemHeight
         let horizonRectangleGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                                        heightDimension: .absolute(headerHeight + horizonRectangleItemHeight)),
+                                                                                                        heightDimension: .absolute(horizonRectangleGroupHeight)),
                                                                      subitems: [headerItem, horizonRectangleItem])
+        let horizonRectangleDoubleGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                                                              heightDimension: .absolute(horizonRectangleGroupHeight * 2)),
+                                                                           subitem: horizonRectangleGroup,
+                                                                           count: 2)
+        // ヘッダー+正方形グループ
+        let squareItemLength = collectionViewBounds.width
+        let squareItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                                   heightDimension: .fractionalHeight(squareItemLength)))
+        let squareItemGroup = NSCollectionLayoutGroupCustomItemProvider
+        let groupsHeight = verticalRectangleHeight + (horizonRectangleGroupHeight * 2)
         let groups = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                         heightDimension: .absolute(collectionViewBounds.height * 3)),
-                                                      subitems: [verticalRectangleGroup, horizonRectangleGroup])
-        groups.interItemSpacing = .fixed(1)
+                                                                                         heightDimension: .absolute(groupsHeight)),
+                                                      subitems: [verticalRectangleGroup, horizonRectangleDoubleGroup])
         let section = NSCollectionLayoutSection(group: groups)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
