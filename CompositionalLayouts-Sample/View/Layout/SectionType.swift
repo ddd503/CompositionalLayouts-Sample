@@ -49,7 +49,8 @@ enum SectionType {
         }
     }
 
-    func gridSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
+    /// グリッド表示
+    private func gridSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemCount = 3 // 横に並べる数
         let lineCount = itemCount - 1
         let itemSpacing = CGFloat(2) // セル間のスペース
@@ -70,7 +71,8 @@ enum SectionType {
         return section
     }
 
-    func largeAndSmallSquareSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
+    /// (大+小縦2)+(小縦2*横3)+(小縦2+大)+(小縦2*横3)の計18アイテム
+    private func largeAndSmallSquareSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemSpacing = CGFloat(2) // セル間のスペース
         // 小ブロック縦2グループ
         let itemLength = (collectionViewBounds.width - (itemSpacing * 2)) / 3
@@ -116,7 +118,8 @@ enum SectionType {
         return section
     }
 
-    func verticalRectangleSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
+    /// 縦長の長方形が１つだけ
+    private func verticalRectangleSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let verticalRectangleHeight = collectionViewBounds.height * 0.8
         let verticalRectangleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                               heightDimension: .fractionalHeight(1.0)))
@@ -127,7 +130,8 @@ enum SectionType {
         return NSCollectionLayoutSection(group: verticalRectangleGroup)
     }
 
-    func rectangleHorizonContinuousWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
+    /// 縦長の長方形が横スクロールする（ヘッダー付き）
+    private func rectangleHorizonContinuousWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let headerHeight = CGFloat(50)
         let headerElementKind = "header-element-kind"
         let rectangleItemHeight = collectionViewBounds.width * 0.9 / 3 * (4/3)
@@ -146,7 +150,8 @@ enum SectionType {
         return horizonRectangleContinuousSection
     }
 
-    func squareWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
+    /// 正方形が1つだけ（ヘッダー付き）
+    private func squareWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemLength = collectionViewBounds.width
         let headerHeight = CGFloat(50)
         let headerElementKind = "header-element-kind"

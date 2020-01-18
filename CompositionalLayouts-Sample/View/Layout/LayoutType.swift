@@ -42,13 +42,13 @@ enum LayoutType {
         case .netflix:
             switch section {
             case 0:
-                return ["leaf"]
+                return ["Leaf"]
             case 1:
                 return australiaPhotoTitles
             case 2:
                 return guamPhotoTitles
             case 3:
-                return ["cat"]
+                return ["Cat"]
             default:
                 return []
             }
@@ -60,7 +60,7 @@ enum LayoutType {
         case .none:
             return UICollectionViewLayout()
         case .grid:
-            return UICollectionViewCompositionalLayout(section: SectionType.grid.gridSection(collectionViewBounds: collectionViewBounds))
+            return UICollectionViewCompositionalLayout(section: SectionType.grid.section(collectionViewBounds: collectionViewBounds))
         case .insta:
             return UICollectionViewCompositionalLayout(section: SectionType.largeAndSmallSquare.section(collectionViewBounds: collectionViewBounds))
         case .netflix:

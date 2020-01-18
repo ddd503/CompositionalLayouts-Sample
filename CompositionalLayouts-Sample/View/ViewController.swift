@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        layoutType = .netflix
+        layoutType = .grid
         setupDataSource()
     }
 
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
                  .rectangleHorizonContinuousWithHeader:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
                                                               for: indexPath) as! CollectionViewCell
-                cell.update(text: "\(title)")
+                cell.setInfo(title: "\(title)", image: UIImage(named: title))
                 return cell
             }
         }

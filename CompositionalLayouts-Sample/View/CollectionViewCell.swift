@@ -11,6 +11,7 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private weak var label: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
 
     static var identifier: String {
         return String(describing: self)
@@ -20,8 +21,9 @@ class CollectionViewCell: UICollectionViewCell {
         return UINib(nibName: identifier, bundle: nil)
     }
 
-    func update(text: String) {
-        label.text = text
+    func setInfo(title: String, image: UIImage?) {
+        label.text = title
+        imageView.image = image
     }
 
 }
