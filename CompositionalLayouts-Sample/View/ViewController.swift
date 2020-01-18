@@ -10,6 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak private var segmentedControl: UISegmentedControl! {
+        didSet {
+            let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                       NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
+
+        }
+    }
+
     // MEMO: IB側で定義するとなぜかレイアウト生成後のスクロールoffsetがbottomになってしまう
     private var collectionView: UICollectionView! {
         didSet {
@@ -22,6 +31,9 @@ class ViewController: UIViewController {
             //                        collectionView.contentInsetAdjustmentBehavior = .never
         }
     }
+
+    // MEMO: collectionViewにsetした時点で監視されるため、開放等は行わない
+       private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
 
     // 表示中のレイアウト
     private var layoutType: LayoutType = .none {
@@ -36,9 +48,6 @@ class ViewController: UIViewController {
         }
     }
 
-    // MEMO: collectionViewにsetした時点で監視されるため、開放等は行わない
-    private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -52,6 +61,7 @@ class ViewController: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // 回転時の可変対応(今回は回転がないので不要)
         collectionView.backgroundColor = .white
         view.addSubview(collectionView)
+        view.bringSubviewToFront(segmentedControl)
     }
 
     // CollectionViewとDataSourceを関連付ける
@@ -106,4 +116,10 @@ class ViewController: UIViewController {
         // リソースの反映
         dataSource.apply(resource, animatingDifferences: false)
     }
+
+    @IBAction func didChangeSegmentedControl(_ sender: UISegmentedControl) {
+        guard let layoutType = LayoutType(rawValue: sender.selectedSegmentIndex) else { return }
+        self.layoutType = layoutType
+    }
+
 }

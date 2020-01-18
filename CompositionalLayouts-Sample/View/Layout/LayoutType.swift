@@ -8,27 +8,27 @@
 
 import UIKit
 
-enum LayoutType {
-    case none // 適用レイアウトなしの状態
+enum LayoutType: Int {
     case grid // グリッド形式での表示（3 * n）
     case insta // Instagramの検索画面
     case netflix // Netflixのトップ(動画一覧)画面
+    case none // 適用レイアウトなしの状態
 
     // 各レイアウト毎の表示セクション順（本来はデータソースの数で決めるので、データソースが複数ある場合のみ必要）
     var sectionArray: [Int] {
         switch self {
-        case .none:
-            return []
         case .grid, .insta:
             return [0]
         case .netflix:
             return [0, 1, 2, 3]
+        default:
+            return []
         }
     }
 
     var backgroundColor: UIColor {
         switch self {
-        case .none, .grid, .insta:
+        case .grid, .insta, .none:
             return .white
         case .netflix:
             return .black
@@ -42,8 +42,6 @@ enum LayoutType {
         let allPhotoTitles = australiaPhotoTitles + guamPhotoTitles
 
         switch self {
-        case .none:
-            return []
         case .grid:
             return allPhotoTitles
         case .insta:
@@ -61,19 +59,21 @@ enum LayoutType {
             default:
                 return []
             }
+        default:
+            return []
         }
     }
 
     func layout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         switch self {
-        case .none:
-            return UICollectionViewLayout()
         case .grid:
             return UICollectionViewCompositionalLayout(section: SectionType.grid.section(collectionViewBounds: collectionViewBounds))
         case .insta:
             return UICollectionViewCompositionalLayout(section: SectionType.largeAndSmallSquare.section(collectionViewBounds: collectionViewBounds))
         case .netflix:
             return netFlixLayout(collectionViewBounds: collectionViewBounds)
+        default:
+            return UICollectionViewLayout()
         }
     }
 
