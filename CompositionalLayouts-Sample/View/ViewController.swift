@@ -26,7 +26,8 @@ class ViewController: UIViewController {
     // 表示中のレイアウト
     private var layoutType: LayoutType = .none {
         didSet {
-            DispatchQueue.main.async { [unowned self] in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 // setされる度に更新をかける
                 self.collectionView.collectionViewLayout = self.layoutType.layout(collectionViewBounds: self.collectionView.bounds)
                 self.collectionView.collectionViewLayout.invalidateLayout()
@@ -40,7 +41,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        layoutType = .grid
+        layoutType = .netflix
         setupDataSource()
     }
 
@@ -55,14 +56,14 @@ class ViewController: UIViewController {
     // CollectionViewとDataSourceを関連付ける
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) { [unowned self] (collectionView, indexPath, title) -> UICollectionViewCell? in
-            guard let sessionType = SectionType(rawValue: indexPath.section, type: self.layoutType) else {
+            guard let sessionType = SectionType(section: indexPath.section, type: self.layoutType) else {
                 return nil
             }
             // カスタムセルの選択（のちのスケールを考慮）
             switch sessionType {
             case .grid, .largeAndSmallSquare,
                  .verticalRectangle, .squareWithHeader,
-                 .verticalRectangleHorizonContinuousWithHeader:
+                 .rectangleHorizonContinuousWithHeader:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
                                                               for: indexPath) as! CollectionViewCell
                 cell.update(text: "\(title)")
@@ -72,14 +73,14 @@ class ViewController: UIViewController {
 
         // ヘッダー等のItemの設定
         dataSource.supplementaryViewProvider =  { (collectionView, kind, indexPath) -> UICollectionReusableView? in
-            guard let sessionType = SectionType(rawValue: indexPath.section, type: self.layoutType) else {
+            guard let sessionType = SectionType(section: indexPath.section, type: self.layoutType) else {
                 return nil
             }
-            let headerKindString = UICollectionView.elementKindSectionHeader
+            let headerKindString = "header-element-kind"
             switch (kind, sessionType) {
             case (headerKindString, .squareWithHeader),
-                 (headerKindString, .verticalRectangleHorizonContinuousWithHeader):
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: headerKindString,
+                 (headerKindString, .rectangleHorizonContinuousWithHeader):
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              withReuseIdentifier: CollectionViewHeader.identifier,
                                                                              for: indexPath) as! CollectionViewHeader
                 header.setTitle("\(indexPath.section)")
