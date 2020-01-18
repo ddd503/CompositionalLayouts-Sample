@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        layoutType = .grid
+        layoutType = .netflix
         setupDataSource()
     }
 
@@ -77,35 +77,26 @@ class ViewController: UIViewController {
                 return nil
             }
             let headerKindString = "header-element-kind"
-//            switch (kind, sessionType) {
-//            case (headerKindString, .squareWithHeader),
-//                 (headerKindString, .rectangleHorizonContinuousWithHeader):
-//                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-//                                                                             withReuseIdentifier: CollectionViewHeader.identifier,
-//                                                                             for: indexPath) as! CollectionViewHeader
-//                header.setTitle("\(indexPath.section)")
-//                return header
-//            default: return nil
-//            }
-
-            // テスト用
-            if kind == headerKindString {
+            switch (kind, sessionType) {
+            case (headerKindString, .squareWithHeader),
+                 (headerKindString, .rectangleHorizonContinuousWithHeader):
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              withReuseIdentifier: CollectionViewHeader.identifier,
                                                                              for: indexPath) as! CollectionViewHeader
                 header.setTitle("\(indexPath.section)")
                 return header
+            default: return nil
             }
-            return nil
         }
 
         // リソースのセット
         var resource = NSDiffableDataSourceSnapshot<Int, String>()
         let sectionArray = layoutType.sectionArray
-        resource.appendSections(sectionArray)
-        let stringsArray = sectionArray.map { layoutType.items(section: $0) }
-        stringsArray.forEach { resource.appendItems($0) }
-
+        // Memo: Sectionセット → Itemセットを交互にしないとデータソースが組み上がらない（Section全てappend、Item全てappendしたら最後のSectionにItem全て入る）
+        sectionArray.forEach {
+            resource.appendSections([$0])
+            resource.appendItems(layoutType.items(section: $0))
+        }
         // リソースの反映
         dataSource.apply(resource, animatingDifferences: false)
     }
