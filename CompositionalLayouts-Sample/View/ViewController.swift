@@ -9,6 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
+
+    // MEMO: IB側で定義するとなぜかレイアウト生成後のスクロールoffsetがbottomになってしまう
+    private var collectionView: UICollectionView! {
+        didSet {
+            collectionView.register(CollectionViewCell.nib(),
+                                    forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            collectionView.register(CollectionViewHeader.nib(),
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: CollectionViewHeader.identifier)
+            //             bottomのsafeAreaを外す場合
+            //                        collectionView.contentInsetAdjustmentBehavior = .never
+        }
+    }
+
     // 表示中のレイアウト
     private var layoutType: LayoutType = .none {
         didSet {
@@ -19,28 +33,26 @@ class ViewController: UIViewController {
             }
         }
     }
-    @IBOutlet weak private var collectionView: UICollectionView! {
-        didSet {
-            collectionView.register(CollectionViewCell.nib(),
-                                    forCellWithReuseIdentifier: CollectionViewCell.identifier)
-            collectionView.register(CollectionViewHeader.nib(),
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                    withReuseIdentifier: CollectionViewHeader.identifier)
-//            collectionView.dataSource = self
-            // bottomのsafeAreaを外す場合
-            //            collectionView.contentInsetAdjustmentBehavior = .never
-        }
-    }
 
     // MEMO: collectionViewにsetした時点で監視されるため、開放等は行わない
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectionView()
         layoutType = .grid
         setupDataSource()
     }
 
+    func setupCollectionView() {
+        collectionView = UICollectionView(frame: view.bounds,
+                                          collectionViewLayout: layoutType.layout(collectionViewBounds: view.bounds))
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // 回転時の可変対応(今回は回転がないので不要)
+        collectionView.backgroundColor = .clear
+        view.addSubview(collectionView)
+    }
+
+    // CollectionViewとDataSourceを関連付ける
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) { [unowned self] (collectionView, indexPath, title) -> UICollectionViewCell? in
             guard let sessionType = SectionType(rawValue: indexPath.section, type: self.layoutType) else {
@@ -84,6 +96,6 @@ class ViewController: UIViewController {
         stringsArray.forEach { resource.appendItems($0) }
 
         // リソースの反映
-        dataSource.apply(resource, animatingDifferences: true)
+        dataSource.apply(resource, animatingDifferences: false)
     }
 }
