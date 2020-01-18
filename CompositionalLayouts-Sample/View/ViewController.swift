@@ -77,16 +77,26 @@ class ViewController: UIViewController {
                 return nil
             }
             let headerKindString = "header-element-kind"
-            switch (kind, sessionType) {
-            case (headerKindString, .squareWithHeader),
-                 (headerKindString, .rectangleHorizonContinuousWithHeader):
+//            switch (kind, sessionType) {
+//            case (headerKindString, .squareWithHeader),
+//                 (headerKindString, .rectangleHorizonContinuousWithHeader):
+//                let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+//                                                                             withReuseIdentifier: CollectionViewHeader.identifier,
+//                                                                             for: indexPath) as! CollectionViewHeader
+//                header.setTitle("\(indexPath.section)")
+//                return header
+//            default: return nil
+//            }
+
+            // テスト用
+            if kind == headerKindString {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              withReuseIdentifier: CollectionViewHeader.identifier,
                                                                              for: indexPath) as! CollectionViewHeader
                 header.setTitle("\(indexPath.section)")
                 return header
-            default: return nil
             }
+            return nil
         }
 
         // リソースのセット
