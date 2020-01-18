@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     // MEMO: IB側で定義するとなぜかレイアウト生成後のスクロールoffsetがbottomになってしまう
     private var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(CollectionViewCell.nib(),
-                                    forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            collectionView.register(SingleViewCell.nib(), forCellWithReuseIdentifier: SingleViewCell.identifier)
             collectionView.register(CollectionViewHeader.nib(),
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                     withReuseIdentifier: CollectionViewHeader.identifier)
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         collectionView = UICollectionView(frame: view.bounds,
                                           collectionViewLayout: layoutType.layout(collectionViewBounds: view.bounds))
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // 回転時の可変対応(今回は回転がないので不要)
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .black
         view.addSubview(collectionView)
     }
 
@@ -62,11 +62,16 @@ class ViewController: UIViewController {
             // カスタムセルの選択（のちのスケールを考慮）
             switch sessionType {
             case .grid, .largeAndSmallSquare,
-                 .verticalRectangle, .squareWithHeader,
-                 .rectangleHorizonContinuousWithHeader:
+                 .squareWithHeader, .rectangleHorizonContinuousWithHeader:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier,
                                                               for: indexPath) as! CollectionViewCell
                 cell.setInfo(title: "\(title)", image: UIImage(named: title))
+                return cell
+            case .verticalRectangle:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SingleViewCell.identifier,
+                                                              for: indexPath) as! SingleViewCell
+                let image = UIImage(named: title)
+                cell.setInfo(backgroundImage: image, centerImage: image, title: title)
                 return cell
             }
         }
@@ -83,7 +88,7 @@ class ViewController: UIViewController {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                              withReuseIdentifier: CollectionViewHeader.identifier,
                                                                              for: indexPath) as! CollectionViewHeader
-                header.setTitle("\(indexPath.section)")
+                header.setTitle(sessionType.sectionTitle(section: indexPath.section, type: self.layoutType))
                 return header
             default: return nil
             }

@@ -19,6 +19,8 @@
 		452181B923D2E64B0098D901 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452181B723D2E64B0098D901 /* CollectionViewHeader.swift */; };
 		452181BA23D2E64B0098D901 /* CollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 452181B823D2E64B0098D901 /* CollectionViewHeader.xib */; };
 		455A51E323D2F68200A6A0A2 /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455A51E223D2F68200A6A0A2 /* SectionType.swift */; };
+		455A51E723D3809D00A6A0A2 /* SingleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455A51E523D3809D00A6A0A2 /* SingleViewCell.swift */; };
+		455A51E823D3809D00A6A0A2 /* SingleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455A51E623D3809D00A6A0A2 /* SingleViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		452181B723D2E64B0098D901 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
 		452181B823D2E64B0098D901 /* CollectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewHeader.xib; sourceTree = "<group>"; };
 		455A51E223D2F68200A6A0A2 /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
+		455A51E523D3809D00A6A0A2 /* SingleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewCell.swift; sourceTree = "<group>"; };
+		455A51E623D3809D00A6A0A2 /* SingleViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,17 @@
 			path = "CompositionalLayouts-Sample";
 			sourceTree = "<group>";
 		};
+		455A51E423D3804E00A6A0A2 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				451AD27623C2114B0095EF96 /* CollectionViewCell.swift */,
+				451AD27723C2114B0095EF96 /* CollectionViewCell.xib */,
+				455A51E523D3809D00A6A0A2 /* SingleViewCell.swift */,
+				455A51E623D3809D00A6A0A2 /* SingleViewCell.xib */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
 		4560AF6F23CC850000D3F8E2 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,10 +105,9 @@
 		4560AF7123CC850600D3F8E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				455A51E423D3804E00A6A0A2 /* UICollectionViewCell */,
 				451AD26623BDE0FE0095EF96 /* ViewController.swift */,
 				451AD26823BDE0FE0095EF96 /* Main.storyboard */,
-				451AD27623C2114B0095EF96 /* CollectionViewCell.swift */,
-				451AD27723C2114B0095EF96 /* CollectionViewCell.xib */,
 				452181B723D2E64B0098D901 /* CollectionViewHeader.swift */,
 				452181B823D2E64B0098D901 /* CollectionViewHeader.xib */,
 				4560AF7323CC854000D3F8E2 /* Layout */,
@@ -175,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455A51E823D3809D00A6A0A2 /* SingleViewCell.xib in Resources */,
 				452181BA23D2E64B0098D901 /* CollectionViewHeader.xib in Resources */,
 				451AD26F23BDE1010095EF96 /* LaunchScreen.storyboard in Resources */,
 				451AD26C23BDE1010095EF96 /* Assets.xcassets in Resources */,
@@ -194,6 +209,7 @@
 				452181B923D2E64B0098D901 /* CollectionViewHeader.swift in Sources */,
 				451AD26723BDE0FE0095EF96 /* ViewController.swift in Sources */,
 				451AD26323BDE0FE0095EF96 /* AppDelegate.swift in Sources */,
+				455A51E723D3809D00A6A0A2 /* SingleViewCell.swift in Sources */,
 				451AD27823C2114B0095EF96 /* CollectionViewCell.swift in Sources */,
 				455A51E323D2F68200A6A0A2 /* SectionType.swift in Sources */,
 				451AD26523BDE0FE0095EF96 /* SceneDelegate.swift in Sources */,

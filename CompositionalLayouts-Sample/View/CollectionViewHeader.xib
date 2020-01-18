@@ -14,18 +14,17 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxr-Fn-sNR">
-                    <rect key="frame" x="20" y="10" width="290" height="67"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="0.0" y="15" width="310" height="72"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Lxr-Fn-sNR" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="04E-bX-oHw"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Lxr-Fn-sNR" secondAttribute="bottom" constant="10" id="PHo-Uo-ya3"/>
+                <constraint firstItem="Lxr-Fn-sNR" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="15" id="04E-bX-oHw"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Lxr-Fn-sNR" secondAttribute="bottom" id="PHo-Uo-ya3"/>
                 <constraint firstAttribute="trailing" secondItem="Lxr-Fn-sNR" secondAttribute="trailing" constant="15" id="jJ3-jd-gZx"/>
-                <constraint firstItem="Lxr-Fn-sNR" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="20" id="ycn-jN-JlY"/>
+                <constraint firstItem="Lxr-Fn-sNR" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="ycn-jN-JlY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <connections>

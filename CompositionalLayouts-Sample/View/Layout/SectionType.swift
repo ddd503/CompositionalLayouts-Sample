@@ -34,6 +34,18 @@ enum SectionType {
         }
     }
 
+    func sectionTitle(section: Int, type: LayoutType) -> String {
+        switch (section, type) {
+        case (1, .netflix):
+            return "オーストラリア"
+        case (2, .netflix):
+            return "グアム"
+        case (3, .netflix):
+            return "ベトナム"
+        default: return "" // セクション表示なしルート
+        }
+    }
+
     func section(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         switch self {
         case .grid:
@@ -121,7 +133,7 @@ enum SectionType {
 
     /// 縦長の長方形が１つだけ
     private func verticalRectangleSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
-        let verticalRectangleHeight = collectionViewBounds.height * 0.8
+        let verticalRectangleHeight = collectionViewBounds.height * 0.7
         let verticalRectangleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                               heightDimension: .fractionalHeight(1.0)))
         let verticalRectangleGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -154,7 +166,7 @@ enum SectionType {
         sectionHeaderItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: insetSpacing, bottom: 0, trailing: insetSpacing)
         horizonRectangleContinuousSection.boundarySupplementaryItems = [sectionHeaderItem]
         horizonRectangleContinuousSection.orthogonalScrollingBehavior = .continuous
-        horizonRectangleContinuousSection.contentInsets = .init(top: 0, leading: insetSpacing, bottom: 0, trailing: insetSpacing)
+        horizonRectangleContinuousSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: insetSpacing, bottom: 0, trailing: insetSpacing)
         return horizonRectangleContinuousSection
     }
 
@@ -162,6 +174,7 @@ enum SectionType {
     private func squareWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemLength = collectionViewBounds.width
         let headerHeight = CGFloat(50)
+        let headerInsetSpacing = CGFloat(10)
         let headerElementKind = "header-element-kind"
         let squareItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
         let squareGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -174,6 +187,7 @@ enum SectionType {
                                                heightDimension: .absolute(headerHeight)),
             elementKind: headerElementKind,
             alignment: .top)
+        sectionHeaderItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: headerInsetSpacing, bottom: headerInsetSpacing, trailing: 0)
         squareSection.boundarySupplementaryItems = [sectionHeaderItem]
         return squareSection
     }
