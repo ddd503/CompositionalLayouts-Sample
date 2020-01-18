@@ -15,7 +15,7 @@ enum SectionType {
     case verticalRectangle // 縦の長方形１つのみのセクション
     case rectangleHorizonContinuousWithHeader // 縦の長方形が横スクロールで流れていくセクション（ヘッダー付き）
     case squareWithHeader // 正方形が1つのみのセクション（ヘッダー付き）
-    
+
     init?(section: Int, type: LayoutType) {
         switch (section, type) {
         case (0, .grid):
@@ -33,11 +33,11 @@ enum SectionType {
         default: return nil
         }
     }
-    
+
     func section(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         switch self {
         case .grid:
-            return rectangleHorizonContinuousWithHeaderSection(collectionViewBounds: collectionViewBounds)
+            return gridSection(collectionViewBounds: collectionViewBounds)
         case .largeAndSmallSquare:
             return largeAndSmallSquareSection(collectionViewBounds: collectionViewBounds)
         case .verticalRectangle:
@@ -48,12 +48,12 @@ enum SectionType {
             return squareWithHeaderSection(collectionViewBounds: collectionViewBounds)
         }
     }
-    
+
     /// グリッド表示
     private func gridSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemCount = 3 // 横に並べる数
         let lineCount = itemCount - 1
-        let itemSpacing = CGFloat(2) // セル間のスペース
+        let itemSpacing = CGFloat(1) // セル間のスペース
         let itemLength = (collectionViewBounds.width - (itemSpacing * CGFloat(lineCount))) / CGFloat(itemCount)
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(itemLength),
                                                                              heightDimension: .absolute(itemLength)))
@@ -65,19 +65,20 @@ enum SectionType {
         let groups = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                          heightDimension: .absolute(itemLength)),
                                                       subitems: [items])
-        let section = NSCollectionLayoutSection(group: groups) // ここでセルの数に反映
+        // 基本的にセルの数は意識しない、セルが入る構成(セクション)を用意しておくだけで勝手に流れてく
+        // 横3つ並べておいて、行は勝手に増えていく
+        let section = NSCollectionLayoutSection(group: groups)
         section.interGroupSpacing = itemSpacing
-        section.contentInsets = .init(top: 0, leading: itemSpacing, bottom: 0, trailing: itemSpacing)
         return section
     }
-    
+
     /// (大+小縦2)+(小縦2*横3)+(小縦2+大)+(小縦2*横3)の計18アイテム
     private func largeAndSmallSquareSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemSpacing = CGFloat(2) // セル間のスペース
         // 小ブロック縦2グループ
         let itemLength = (collectionViewBounds.width - (itemSpacing * 2)) / 3
         let largeItemLength = itemLength * 2 + itemSpacing
-        
+
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(itemLength),
                                                                              heightDimension: .absolute(itemLength)))
         let verticalItemTwo = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(itemLength),
@@ -88,12 +89,12 @@ enum SectionType {
         // 大ブロックありグループ
         let largeItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(largeItemLength),
                                                                                   heightDimension: .absolute(largeItemLength)))
-        
+
         let largeItemLeftGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                                        heightDimension: .absolute(largeItemLength)),
                                                                     subitems: [largeItem, verticalItemTwo])
         largeItemLeftGroup.interItemSpacing = .fixed(itemSpacing)
-        
+
         let largeItemRightGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                                         heightDimension: .absolute(largeItemLength)),
                                                                      subitems: [verticalItemTwo, largeItem])
@@ -104,7 +105,7 @@ enum SectionType {
                                                                    subitem: verticalItemTwo,
                                                                    count: 3)
         twoThreeItemGroup.interItemSpacing = .fixed(itemSpacing)
-        
+
         let subitems = [largeItemLeftGroup, twoThreeItemGroup, largeItemRightGroup, twoThreeItemGroup]
         let groupsSpaceCount = CGFloat(subitems.count - 1)
         let heightDimension = NSCollectionLayoutDimension.absolute(largeItemLength * CGFloat(subitems.count) + (itemSpacing * groupsSpaceCount))
@@ -117,7 +118,7 @@ enum SectionType {
         section.interGroupSpacing = itemSpacing
         return section
     }
-    
+
     /// 縦長の長方形が１つだけ
     private func verticalRectangleSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let verticalRectangleHeight = collectionViewBounds.height * 0.8
@@ -129,7 +130,7 @@ enum SectionType {
                                                                       count: 1)
         return NSCollectionLayoutSection(group: verticalRectangleGroup)
     }
-    
+
     /// 縦長の長方形が横スクロールする（ヘッダー付き）
     private func rectangleHorizonContinuousWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let headerHeight = CGFloat(50)
@@ -156,7 +157,7 @@ enum SectionType {
         horizonRectangleContinuousSection.contentInsets = .init(top: 0, leading: insetSpacing, bottom: 0, trailing: insetSpacing)
         return horizonRectangleContinuousSection
     }
-    
+
     /// 正方形が1つだけ（ヘッダー付き）
     private func squareWithHeaderSection(collectionViewBounds: CGRect) -> NSCollectionLayoutSection {
         let itemLength = collectionViewBounds.width
