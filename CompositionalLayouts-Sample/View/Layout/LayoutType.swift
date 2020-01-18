@@ -9,12 +9,56 @@
 import UIKit
 
 enum LayoutType {
+    case none // 適用レイアウトなしの状態
     case grid // グリッド形式での表示（3 * n）
     case insta // Instagramの検索画面
     case netflix // Netflixのトップ(動画一覧)画面
 
+    // 各レイアウト毎の表示セクション順（本来はデータソースの数で決めるので、データソースが複数ある場合のみ必要）
+    var sectionArray: [Int] {
+        switch self {
+        case .none:
+            return []
+        case .grid, .insta:
+            return [0]
+        case .netflix:
+            return [0, 1, 2, 3]
+        }
+    }
+
+    // 各レイアウト毎、セッション別に表示するitemの情報を返す（今回は画像のタイトルのみなので[String]）
+    func items(section: Int) -> [String] {
+        let australiaPhotoTitles = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        let guamPhotoTitles = ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]
+        let allPhotoTitles = australiaPhotoTitles + guamPhotoTitles
+
+        switch self {
+        case .none:
+            return []
+        case .grid:
+            return allPhotoTitles
+        case .insta:
+            return allPhotoTitles
+        case .netflix:
+            switch section {
+            case 0:
+                return ["leaf"]
+            case 1:
+                return australiaPhotoTitles
+            case 2:
+                return guamPhotoTitles
+            case 3:
+                return ["cat"]
+            default:
+                return []
+            }
+        }
+    }
+
     func layout(collectionViewBounds: CGRect) -> UICollectionViewLayout {
         switch self {
+        case .none:
+            return UICollectionViewLayout()
         case .grid:
             return gridLayout(collectionViewBounds: collectionViewBounds)
         case .insta:
@@ -119,16 +163,16 @@ enum LayoutType {
                                                                            subitem: horizonRectangleGroup,
                                                                            count: 2)
         // ヘッダー+正方形グループ
-        let squareItemLength = collectionViewBounds.width
-        let squareItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                   heightDimension: .fractionalHeight(squareItemLength)))
-        let squareItemGroup = NSCollectionLayoutGroupCustomItemProvider
-        let groupsHeight = verticalRectangleHeight + (horizonRectangleGroupHeight * 2)
-        let groups = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                         heightDimension: .absolute(groupsHeight)),
-                                                      subitems: [verticalRectangleGroup, horizonRectangleDoubleGroup])
-        let section = NSCollectionLayoutSection(group: groups)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
+//        let squareItemLength = collectionViewBounds.width
+//        let squareItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                                                                   heightDimension: .fractionalHeight(squareItemLength)))
+//        let squareItemGroup = UICollectionViewDiffableDataSource(collectionView: <#T##UICollectionView#>, cellProvider: <#T##(UICollectionView, IndexPath, _) -> UICollectionViewCell?#>)
+//        let groupsHeight = verticalRectangleHeight + (horizonRectangleGroupHeight * 2)
+//        let groups = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                                                                         heightDimension: .absolute(groupsHeight)),
+//                                                      subitems: [verticalRectangleGroup, horizonRectangleDoubleGroup])
+//        let section = NSCollectionLayoutSection(group: groups)
+//        let layout = UICollectionViewCompositionalLayout(section: section)
+        return UICollectionViewLayout()
     }
 }
