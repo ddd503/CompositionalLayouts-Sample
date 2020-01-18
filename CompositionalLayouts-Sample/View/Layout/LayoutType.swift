@@ -26,6 +26,15 @@ enum LayoutType {
         }
     }
 
+    var backgroundColor: UIColor {
+        switch self {
+        case .none, .grid, .insta:
+            return .white
+        case .netflix:
+            return .black
+        }
+    }
+
     // 各レイアウト毎、セッション別に表示するitemの情報を返す（今回は画像のタイトルのみなので[String]）
     func items(section: Int) -> [String] {
         let australiaPhotoTitles = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]

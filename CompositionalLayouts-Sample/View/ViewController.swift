@@ -31,6 +31,7 @@ class ViewController: UIViewController {
                 // setされる度に更新をかける
                 self.collectionView.collectionViewLayout = self.layoutType.layout(collectionViewBounds: self.collectionView.bounds)
                 self.collectionView.collectionViewLayout.invalidateLayout()
+                self.collectionView.backgroundColor = self.layoutType.backgroundColor
             }
         }
     }
@@ -41,7 +42,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        layoutType = .netflix
+        layoutType = .grid
         setupDataSource()
     }
 
@@ -49,7 +50,7 @@ class ViewController: UIViewController {
         collectionView = UICollectionView(frame: view.bounds,
                                           collectionViewLayout: layoutType.layout(collectionViewBounds: view.bounds))
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // 回転時の可変対応(今回は回転がないので不要)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .white
         view.addSubview(collectionView)
     }
 

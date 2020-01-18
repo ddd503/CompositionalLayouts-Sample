@@ -90,6 +90,15 @@
 			path = UICollectionViewCell;
 			sourceTree = "<group>";
 		};
+		455A51E923D38EE700A6A0A2 /* UICollectionReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				452181B723D2E64B0098D901 /* CollectionViewHeader.swift */,
+				452181B823D2E64B0098D901 /* CollectionViewHeader.xib */,
+			);
+			path = UICollectionReusableView;
+			sourceTree = "<group>";
+		};
 		4560AF6F23CC850000D3F8E2 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +114,10 @@
 		4560AF7123CC850600D3F8E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				455A51E423D3804E00A6A0A2 /* UICollectionViewCell */,
 				451AD26623BDE0FE0095EF96 /* ViewController.swift */,
 				451AD26823BDE0FE0095EF96 /* Main.storyboard */,
-				452181B723D2E64B0098D901 /* CollectionViewHeader.swift */,
-				452181B823D2E64B0098D901 /* CollectionViewHeader.xib */,
+				455A51E923D38EE700A6A0A2 /* UICollectionReusableView */,
+				455A51E423D3804E00A6A0A2 /* UICollectionViewCell */,
 				4560AF7323CC854000D3F8E2 /* Layout */,
 			);
 			path = View;
