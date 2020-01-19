@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
 
     // MEMO: collectionViewにsetした時点で監視されるため、開放等は行わない
-       private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
 
     // 表示中のレイアウト
     private var layoutType: LayoutType = .none {
