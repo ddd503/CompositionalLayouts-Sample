@@ -12,10 +12,10 @@ class ViewController: UIViewController {
 
     @IBOutlet weak private var segmentedControl: UISegmentedControl! {
         didSet {
+            // タイトルの色とフォントサイズの指定
             let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
                                        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
-        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
-
+            segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
         }
     }
 
@@ -40,7 +40,9 @@ class ViewController: UIViewController {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                // setされる度に更新をかける
+                // setされる度に更新をかける（レイアウト毎変える場合は、レイアウト、データソースの順で更新する）
+                self.setupCollectionView()
+                self.setupDataSource()
                 self.collectionView.collectionViewLayout = self.layoutType.layout(collectionViewBounds: self.collectionView.bounds)
                 self.collectionView.collectionViewLayout.invalidateLayout()
                 self.collectionView.backgroundColor = self.layoutType.backgroundColor
@@ -50,9 +52,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
-        layoutType = .grid
-        setupDataSource()
+        // 初期レイアウトを指定
+        layoutType = LayoutType(rawValue: segmentedControl.selectedSegmentIndex)!
     }
 
     func setupCollectionView() {
@@ -68,7 +69,7 @@ class ViewController: UIViewController {
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) { [unowned self] (collectionView, indexPath, title) -> UICollectionViewCell? in
             guard let sessionType = SectionType(section: indexPath.section, type: self.layoutType) else {
-                return nil
+                fatalError("invalid SectionType")
             }
             // カスタムセルの選択（のちのスケールを考慮）
             switch sessionType {
@@ -88,7 +89,7 @@ class ViewController: UIViewController {
         }
 
         // ヘッダー等のItemの設定
-        dataSource.supplementaryViewProvider =  { (collectionView, kind, indexPath) -> UICollectionReusableView? in
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView? in
             guard let sessionType = SectionType(section: indexPath.section, type: self.layoutType) else {
                 return nil
             }
@@ -104,7 +105,6 @@ class ViewController: UIViewController {
             default: return nil
             }
         }
-
         // リソースのセット
         var resource = NSDiffableDataSourceSnapshot<Int, String>()
         let sectionArray = layoutType.sectionArray

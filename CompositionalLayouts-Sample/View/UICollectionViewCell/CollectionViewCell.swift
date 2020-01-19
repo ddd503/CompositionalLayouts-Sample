@@ -13,6 +13,11 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+
     static var identifier: String {
         return String(describing: self)
     }
