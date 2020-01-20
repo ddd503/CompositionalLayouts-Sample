@@ -44,7 +44,6 @@ class ViewController: UIViewController {
                 self.setupCollectionView()
                 self.setupDataSource()
                 self.collectionView.collectionViewLayout = self.layoutType.layout(collectionViewBounds: self.collectionView.bounds)
-                self.collectionView.collectionViewLayout.invalidateLayout()
                 self.collectionView.backgroundColor = self.layoutType.backgroundColor
             }
         }
