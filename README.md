@@ -12,3 +12,4 @@ UICollectionViewCompositionalLayoutでカスタムレイアウトを実装する
 |Category | Version |
 |:-----------|:------------|
 | Xcode | 11.3.1 |
+| OS | iOS13~ |
